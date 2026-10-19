@@ -1,0 +1,22 @@
+name: Flutter tests
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [customer, retailer, rider, admin]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.5'
+          channel: stable
+          cache: true
+      - run: flutter pub get
+        working-directory: apps/${{ matrix.app }}
+      - run: flutter test --reporter expanded
+        working-directory: apps/${{ matrix.app }}

@@ -39,3 +39,17 @@ Original Firebase configuration files were excluded. `lib/firebase_options.dart`
 This is a separate copy of the four projects used for the local launch, rather than the later customer-only review candidate. Original app folders were not modified. Build artifacts, SDK, dependency caches, machine settings and signing files are excluded. No new code license has been selected.
 
 Verification: the original four app projects launched locally. This sanitized copy has not been rebuilt with independent Firebase configuration, and full order workflows have not been verified.
+
+## Environment file
+
+Copy `.env.example` to `.env` at the repository root, then launch an app with `bash scripts/run_app.sh customer` (or `retailer`, `rider`, `admin`). The script passes the file to Flutter using `--dart-define-from-file`; it does not execute the file as shell code. `.env` is ignored by Git. The template contains safe emulator settings only. Flutter defines are compiled into the client and must never contain server passwords, private keys or service-account credentials. Firebase platform configuration still requires the separate setup above.
+
+## Test cases
+
+From each app directory, run `flutter pub get` then `flutter test --reporter expanded`. Tests run without Firebase credentials or emulators. GitHub Actions runs the four suites on pushes and pull requests.
+
+- Customer: basket add/remove/count behavior, outfit budget/stock/store matching, and responsive branding.
+- Retailer and admin: invalid sign-in inputs are rejected before Firebase access, plus responsive branding with the correct role.
+- Rider: editable sign-in fields, password masking, and responsive branding.
+
+These are unit and widget tests; backend order, payment and dispatch integration tests are not included.

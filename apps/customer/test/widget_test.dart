@@ -1,30 +1,29 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:snap_wear/main.dart';
+import 'package:snap_wear/royal_design.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const SnapWearApp());
-
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  testWidgets('Role remains readable on a narrow screen with enlarged text', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(320, 640));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: MediaQuery(
+          data: MediaQueryData(textScaler: TextScaler.linear(1.5)),
+          child: Scaffold(body: RoyalWordmark(role: 'Customer')),
+        ),
+      ),
+    );
+    expect(find.text('SNAPWEAR · Customer'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+  testWidgets('Brand without role renders correctly', (tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(home: Scaffold(body: RoyalWordmark())),
+    );
+    expect(find.text('SNAPWEAR'), findsOneWidget);
+    expect(tester.takeException(), isNull);
   });
 }

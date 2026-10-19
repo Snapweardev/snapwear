@@ -1,13 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:snapwear_retailer/royal_design.dart';
-import 'package:snapwear_retailer/snapwear_design.dart';
+
 void main() {
- testWidgets('Brand header fits a narrow screen and exposes role', (tester) async {
-  await tester.binding.setSurfaceSize(const Size(320, 640));
-  addTearDown(() => tester.binding.setSurfaceSize(null));
-  await tester.pumpWidget(MaterialApp(theme: snapWearTheme(), home: const Scaffold(appBar: null, body: RoyalWordmark(role: 'Boutique'))));
-  expect(find.text('SNAPWEAR · Boutique'), findsOneWidget);
-  expect(tester.takeException(), isNull);
- });
+  testWidgets('Role remains readable on a narrow screen with enlarged text', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(320, 640));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: MediaQuery(
+          data: MediaQueryData(textScaler: TextScaler.linear(1.5)),
+          child: Scaffold(body: RoyalWordmark(role: 'Boutique')),
+        ),
+      ),
+    );
+    expect(find.text('SNAPWEAR · Boutique'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+  testWidgets('Brand without role renders correctly', (tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(home: Scaffold(body: RoyalWordmark())),
+    );
+    expect(find.text('SNAPWEAR'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
 }
