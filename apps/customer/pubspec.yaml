@@ -1,0 +1,50 @@
+name: snap_wear
+description: "SnapWear fashion shopping app."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.13.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  google_fonts: ^9.0.0
+  firebase_core: ^4.15.0
+  firebase_auth: ^6.7.0
+  cloud_firestore: ^6.10.0
+  flutter_map: ^8.3.2
+  latlong2: ^0.10.1
+  geolocator: ^14.1.1
+  url_launcher: ^6.3.3
+  http: ^1.6.0
+  google_sign_in: ^7.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  assets:
+    - assets/opening-shops.webp
+    - assets/opening-bikes.webp
+    - assets/royal-hero.webp
+    - assets/fonts/OFL.txt
+    - assets/royal-collections.webp
+    - assets/opening-cream-atlas.webp
+    - assets/opening-cream-garments.webp
+    - assets/opening-bikes-closed.webp
+    - assets/opening-garments.webp
+    - assets/snapwear-bike-rider.png
+    - assets/snapwear-bike-background.png
+    - assets/snapwear-opening.png
+  uses-material-design: true
+
+  fonts:
+    - family: SnapSerif
+      fonts:
+        - asset: assets/fonts/CormorantGaramond.ttf
+        - asset: assets/fonts/CormorantGaramond-Italic.ttf
+          style: italic

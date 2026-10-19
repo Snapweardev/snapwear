@@ -1,0 +1,30 @@
+# Flutter and generated output
+**/.dart_tool/
+**/build/
+**/.flutter-plugins*
+**/Pods/
+**/.symlinks/
+**/ephemeral/
+**/.gradle/
+**/node_modules/
+**/.idea/
+*.iml
+.DS_Store
+*.log
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+**/local.properties
+**/key.properties
+**/google-services.json
+**/GoogleService-Info.plist
+*.jks
+*.keystore
+*.p12
+*.pem
+*.p8
+*.mobileprovision
+*service-account*.json
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
